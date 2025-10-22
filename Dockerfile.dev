@@ -14,6 +14,7 @@ RUN npm ci
 # Copiamos el resto del proyecto
 COPY . .
 
+USER node
 # Exponemos un puerto (opcional, útil si luego tu agente levanta un servidor HTTP)
 EXPOSE 3000
 
