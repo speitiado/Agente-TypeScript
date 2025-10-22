@@ -1,0 +1,21 @@
+# Imagen base ligera
+FROM node:20-alpine
+
+# Carpeta de trabajo dentro del contenedor
+WORKDIR /app
+
+RUN apk add --no-cache git bash
+# Copiamos solo los archivos de dependencias primero
+COPY package*.json ./
+
+# Instalamos dependencias (incluyendo devDependencies)
+RUN npm ci
+
+# Copiamos el resto del proyecto
+COPY . .
+
+# Exponemos un puerto (opcional, útil si luego tu agente levanta un servidor HTTP)
+EXPOSE 3000
+
+# Comando por defecto: modo desarrollo (con nodemon)
+CMD ["npm", "run", "dev"]

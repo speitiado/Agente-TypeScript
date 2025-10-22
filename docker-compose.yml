@@ -1,0 +1,15 @@
+
+services:
+  ia-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: ia-agent-dev
+    volumes:
+      - .:/app              # monta tu código local dentro del contenedor
+      - /app/node_modules   # evita sobreescribir node_modules
+    command: npm run dev    # usa tu script de desarrollo
+    env_file:
+      - .env                # si tienes un .env, lo cargará automáticamente
+    tty: true
+    stdin_open: true
