@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/speitiado/Agente-TypeScript#readme",
   "dependencies": {
+    "@langchain/core": "^1.0.1",
+    "@langchain/langgraph": "^1.0.1",
     "dotenv": "^17.2.3"
   },
   "devDependencies": {
