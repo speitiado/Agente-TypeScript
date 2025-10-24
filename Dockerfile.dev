@@ -5,18 +5,24 @@ FROM node:20-alpine
 WORKDIR /app
 
 RUN apk add --no-cache git bash
-# Copiamos solo los archivos de dependencias primero
+
+# Copiamos los archivos de dependencias primero
 COPY package*.json ./
 
-# Instalamos dependencias (incluyendo devDependencies)
+# Instalamos dependencias como root
 RUN npm ci
 
 # Copiamos el resto del proyecto
 COPY . .
 
+# ✅ Ajustamos permisos antes de cambiar de usuario
+RUN chown -R node:node /app
+
+# Ahora cambiamos de usuario
 USER node
-# Exponemos un puerto (opcional, útil si luego tu agente levanta un servidor HTTP)
+
+# Exponemos puerto
 EXPOSE 3000
 
-# Comando por defecto: modo desarrollo (con nodemon)
+# Comando por defecto
 CMD ["npm", "run", "dev"]
